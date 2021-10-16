@@ -1,0 +1,66 @@
+@mixin button($color) {
+    font-size: 35px;
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+    padding: 3px 15px;
+    background-color: $color;
+}
+
+%blueButton {
+    font-size: 35px;
+    background-color: deepskyblue;
+    border: none;
+    border-radius: 5px 5px 5px 5px;
+    padding: 3px 15px;
+}
+
+.counter {
+    padding: 15px 15px 15px 15px;
+    .counterNumber {
+        border-radius: 10px 10px 10px 10px;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        margin-bottom: 15px;
+        text-align: center;
+        background-color: deepskyblue;
+        .counterNumberRed {
+            color: red;
+        }
+    }
+
+    .counterButtons {
+        display: flex;
+        justify-content: space-evenly;
+        border-radius: 10px 10px 10px 10px;
+        padding: 0 15px 15px 15px;
+        border: 2px solid deepskyblue;
+
+        .counterButtonsInc {
+            @include button(green);
+
+            &:hover {
+                background-color: #249a24;
+            }
+        }
+
+        .counterButtonsIncBlue {
+            @include button(deepskyblue);
+        }
+
+        .counterButtonsRes {
+            @include button(red);
+
+            &:hover {
+                background-color: #ff3f3f;
+            }
+        }
+
+        .counterButtonsResBlue {
+            @include button(deepskyblue);
+        }
+    }
+}
+
+
+
+
