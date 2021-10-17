@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import s from './App.module.scss'
 import {Counter} from "./components/Counter/Counter"
 
@@ -9,21 +9,36 @@ function App() {
 
     let [counter, setCounter] = useState<number>(startValue)
 
-    const incCounter = () => {
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('counterKey')
+        if (valueAsString) {
+            let valueAsNumber = JSON.parse(valueAsString)
+            setCounter(valueAsNumber)
+        }
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('counterKey', JSON.stringify(counter))
+    }, [counter])
+
+
+    const incCounterHandler = () => {
         if (counter < maxValue) setCounter(counter + 1)
     }
 
-    const resetCounter = () => {
-        setCounter(startValue)
-    }
+    const resetCounterHandler = () => setCounter(startValue)
+
+
+
 
     return (
         <div className={s.app}>
             <Counter counter={counter}
-                     incCounter={incCounter}
-                     resetCounter={resetCounter}
+                     incCounterHandler={incCounterHandler}
+                     resetCounterHandler={resetCounterHandler}
                      startValue={startValue}
-                     maxValue={maxValue}/>
+                     maxValue={maxValue}
+                     />
         </div>
     )
 }

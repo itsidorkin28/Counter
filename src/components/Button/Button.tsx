@@ -3,8 +3,8 @@ import React from "react"
 export type ButtonType = {
     name: string
     onClick: () => void
-    className: string
-    disabled: number
+    className?: string
+    disabled?: number
     counter: number
 }
 

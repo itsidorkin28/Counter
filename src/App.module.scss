@@ -4,12 +4,11 @@ body {
 }
 
 .app {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300px;
-    height: auto;
-    margin: -150px 0 0 -150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 25%;
+    margin: 30px;
     border-radius: 10px 10px 10px 10px;
     border: 2px solid deepskyblue;
 }

@@ -1,26 +1,24 @@
 @mixin button($color) {
     font-size: 35px;
+    min-width: 125px;
     border: none;
     border-radius: 5px 5px 5px 5px;
     padding: 3px 15px;
+    margin: 0 5px;
     background-color: $color;
 }
 
-%blueButton {
-    font-size: 35px;
-    background-color: deepskyblue;
-    border: none;
-    border-radius: 5px 5px 5px 5px;
-    padding: 3px 15px;
-}
-
 .counter {
-    padding: 15px 15px 15px 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
     .counterNumber {
         border-radius: 10px 10px 10px 10px;
         padding-top: 25px;
         padding-bottom: 25px;
         margin-bottom: 15px;
+        margin-left: 15px;
+        margin-right: 15px;
         text-align: center;
         background-color: deepskyblue;
         .counterNumberRed {
@@ -30,8 +28,10 @@
 
     .counterButtons {
         display: flex;
-        justify-content: space-evenly;
+        flex-direction: row;
+        align-content: space-between;
         border-radius: 10px 10px 10px 10px;
+        margin: 5px 15px;
         padding: 0 15px 15px 15px;
         border: 2px solid deepskyblue;
 
