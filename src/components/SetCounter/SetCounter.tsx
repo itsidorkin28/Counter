@@ -24,7 +24,7 @@ export function SetCounter(props: CounterType) {
     const setCounterHandler = () => {
         props.setMaxValue(maxValue)
         props.setStartValue(startValue)
-        props.setCounter(props.startValue)
+        props.setCounter(startValue)
     }
     return (
         <div className={s.SetCounter}>
