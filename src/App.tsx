@@ -57,12 +57,6 @@ function App() {
         localStorage.setItem('maxValueKey_1', JSON.stringify(maxValue))
     }, [maxValue])
 
-
-
-
-
-
-
     const incCounterHandler = () => {
         if (counter < maxValue) setCounter(counter + 1)
     }
