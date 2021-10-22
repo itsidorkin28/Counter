@@ -1,5 +1,5 @@
+import {Button} from "@mui/material"
 import React from "react"
-import {Button} from "../Button/Button"
 import s from './Counter.module.scss'
 
 export type CounterType = {
@@ -12,26 +12,30 @@ export type CounterType = {
 
 export function Counter(props: CounterType) {
 
-    const incClass = props.counter < props.maxValue ? s.counterButtonsInc : s.counterButtonsIncBlue
-    const resClass = props.counter === props.maxValue ? s.counterButtonsRes : s.counterButtonsResBlue
-    const redTextClass = props.counter === props.maxValue ? s.counterNumberRed : ''
+    const counterNumberMaxClass = props.counter === props.maxValue ? s.counterNumberMax : ''
     const incCounterHandler = () => props.incCounterHandler()
     const resetCounterHandler = () => props.resetCounterHandler()
 
     return (
         <div className={s.counter}>
             <div className={s.counterNumber}>
-                <span className={redTextClass}>{props.counter}</span>
+                <span className={counterNumberMaxClass}>{props.counter}</span>
             </div>
             <div className={s.counterButtons}>
-                <div>
-                    <Button name={'inc'} onClick={incCounterHandler} disabled={props.maxValue} className={incClass}
-                            counter={props.counter}/>
-                </div>
-                <div>
-                    <Button name={'reset'} onClick={resetCounterHandler} disabled={props.startValue} className={resClass}
-                            counter={props.counter}/>
-                </div>
+
+                    {
+                        props.maxValue === props.counter
+                            ? <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={incCounterHandler} disabled>inc</Button>
+                            : <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={incCounterHandler}>inc</Button>
+                    }
+
+
+                    {
+                        props.counter === props.maxValue || props.counter > props.startValue
+                            ? <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={resetCounterHandler}>res</Button>
+                            : <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={resetCounterHandler} disabled>res</Button>
+                    }
+
             </div>
         </div>
     )
