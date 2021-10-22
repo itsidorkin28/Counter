@@ -15,7 +15,7 @@ const Item = styled(Paper)(({theme}) => ({
 function App() {
 
     const [startValue, setStartValue] = useState<number>(0)
-    const [maxValue, setMaxValue] = useState<number>(5)
+    const [maxValue, setMaxValue] = useState<number>(0)
     const [counter, setCounter] = useState<number>(startValue)
 
     const changeStartValue = (num: number) => {

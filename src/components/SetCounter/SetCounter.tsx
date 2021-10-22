@@ -1,5 +1,5 @@
 import {Button, Paper, TextField} from "@mui/material"
-import React, {ChangeEvent} from "react"
+import React, {ChangeEvent, useState} from "react"
 import s from './SetCounter.module.scss'
 
 export type CounterType = {
@@ -13,13 +13,17 @@ export type CounterType = {
 }
 
 export function SetCounter(props: CounterType) {
-    const setMaxValue = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setMaxValue(Number(e.currentTarget.value))
+    const [startValue, setStartValue] = useState<number>(0)
+    const [maxValue, setMaxValue] = useState<number>(0)
+    const setMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setMaxValue(Number(e.currentTarget.value))
     }
-    const setStartValue = (e: ChangeEvent<HTMLInputElement>) => {
-        props.setStartValue(Number(e.currentTarget.value))
+    const setStartValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setStartValue(Number(e.currentTarget.value))
     }
     const setCounterHandler = () => {
+        props.setMaxValue(maxValue)
+        props.setStartValue(startValue)
         props.setCounter(props.startValue)
     }
     return (
@@ -28,9 +32,9 @@ export function SetCounter(props: CounterType) {
                 <div>
                     <Paper>
                         <span>Max value:</span>
-                        {props.maxValue < 0 ?
-                            <TextField value={props.maxValue}
-                                       onChange={setMaxValue}
+                        {maxValue < 0 ?
+                            <TextField value={maxValue}
+                                       onChange={setMaxValueHandler}
                                        size={'small'}
                                        id="outlined-number"
                                        label="Number"
@@ -39,8 +43,8 @@ export function SetCounter(props: CounterType) {
                                        InputLabelProps={{
                                            shrink: true,
                                        }}
-                            /> : <TextField value={props.maxValue}
-                                            onChange={setMaxValue}
+                            /> : <TextField value={maxValue}
+                                            onChange={setMaxValueHandler}
                                             size={'small'}
                                             id="outlined-number"
                                             label="Number"
@@ -54,9 +58,9 @@ export function SetCounter(props: CounterType) {
                 <div>
                     <Paper>
                         <span>Start value:</span>
-                        {props.startValue < 0 ?
-                            <TextField value={props.startValue}
-                                       onChange={setStartValue}
+                        {startValue < 0 ?
+                            <TextField value={startValue}
+                                       onChange={setStartValueHandler}
                                        size={'small'}
                                        id="outlined-number"
                                        label="Number"
@@ -65,8 +69,8 @@ export function SetCounter(props: CounterType) {
                                        InputLabelProps={{
                                            shrink: true,
                                        }}
-                            /> : <TextField value={props.startValue}
-                                            onChange={setStartValue}
+                            /> : <TextField value={startValue}
+                                            onChange={setStartValueHandler}
                                             size={'small'}
                                             id="outlined-number"
                                             label="Number"
@@ -80,7 +84,7 @@ export function SetCounter(props: CounterType) {
             </div>
             <div className={s.setButton}>
                 {
-                    props.startValue < 0 || props.maxValue <= 0 ?
+                    startValue < 0 || maxValue <= 0 ?
                         <Button style={{margin: '3px 3px'}} variant={'contained'}
                                 onClick={setCounterHandler} disabled>set</Button> :
                         <Button style={{margin: '3px 3px'}} variant={'contained'}
