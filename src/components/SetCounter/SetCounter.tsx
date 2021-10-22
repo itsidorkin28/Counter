@@ -84,7 +84,7 @@ export function SetCounter(props: CounterType) {
             </div>
             <div className={s.setButton}>
                 {
-                    startValue < 0 || maxValue <= 0 ?
+                    startValue >= maxValue || startValue < 0 || maxValue <= 0 ?
                         <Button style={{margin: '3px 3px'}} variant={'contained'}
                                 onClick={setCounterHandler} disabled>set</Button> :
                         <Button style={{margin: '3px 3px'}} variant={'contained'}

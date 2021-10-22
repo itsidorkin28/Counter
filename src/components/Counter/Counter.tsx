@@ -31,7 +31,8 @@ export function Counter(props: CounterType) {
 
 
                     {
-                        props.counter === props.maxValue || props.counter > props.startValue
+                        // eslint-disable-next-line no-mixed-operators
+                        props.maxValue !== 0 && props.counter === props.maxValue || props.counter > props.startValue
                             ? <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={resetCounterHandler}>res</Button>
                             : <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={resetCounterHandler} disabled>res</Button>
                     }
