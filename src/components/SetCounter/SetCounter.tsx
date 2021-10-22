@@ -1,5 +1,5 @@
 import {Button, Paper, TextField} from "@mui/material"
-import React, {ChangeEvent, useState} from "react"
+import React, {ChangeEvent, useEffect, useState} from "react"
 import s from './SetCounter.module.scss'
 
 export type CounterType = {
@@ -15,6 +15,27 @@ export type CounterType = {
 export function SetCounter(props: CounterType) {
     const [startValue, setStartValue] = useState<number>(0)
     const [maxValue, setMaxValue] = useState<number>(0)
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('startValueKey')
+        if (valueAsString) {
+            let valueAsNumber = JSON.parse(valueAsString)
+            setStartValue(valueAsNumber)
+        }
+    }, [])
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('maxValueKey')
+        if (valueAsString) {
+            let valueAsNumber = JSON.parse(valueAsString)
+            setMaxValue(valueAsNumber)
+        }
+    }, [])
+    useEffect(() => {
+        localStorage.setItem('startValueKey', JSON.stringify(startValue))
+    }, [startValue])
+    useEffect(() => {
+        localStorage.setItem('maxValueKey', JSON.stringify(maxValue))
+    }, [maxValue])
+
     const setMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setMaxValue(Number(e.currentTarget.value))
     }
@@ -84,7 +105,8 @@ export function SetCounter(props: CounterType) {
             </div>
             <div className={s.setButton}>
                 {
-                    startValue >= maxValue || startValue < 0 || maxValue <= 0 ?
+                    // eslint-disable-next-line no-mixed-operators
+                    startValue === props.startValue && maxValue === props.maxValue || startValue >= maxValue || startValue < 0 || maxValue <= 0 ?
                         <Button style={{margin: '3px 3px'}} variant={'contained'}
                                 onClick={setCounterHandler} disabled>set</Button> :
                         <Button style={{margin: '3px 3px'}} variant={'contained'}
