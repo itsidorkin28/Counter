@@ -16,24 +16,24 @@ export function SetCounter(props: CounterType) {
     const [startValue, setStartValue] = useState<number>(0)
     const [maxValue, setMaxValue] = useState<number>(0)
     useEffect(() => {
-        let valueAsString = localStorage.getItem('startValueKey')
+        let valueAsString = localStorage.getItem('startValueKey_2')
         if (valueAsString) {
             let valueAsNumber = JSON.parse(valueAsString)
             setStartValue(valueAsNumber)
         }
     }, [])
     useEffect(() => {
-        let valueAsString = localStorage.getItem('maxValueKey')
+        let valueAsString = localStorage.getItem('maxValueKey_2')
         if (valueAsString) {
             let valueAsNumber = JSON.parse(valueAsString)
             setMaxValue(valueAsNumber)
         }
     }, [])
     useEffect(() => {
-        localStorage.setItem('startValueKey', JSON.stringify(startValue))
+        localStorage.setItem('startValueKey_2', JSON.stringify(startValue))
     }, [startValue])
     useEffect(() => {
-        localStorage.setItem('maxValueKey', JSON.stringify(maxValue))
+        localStorage.setItem('maxValueKey_2', JSON.stringify(maxValue))
     }, [maxValue])
 
     const setMaxValueHandler = (e: ChangeEvent<HTMLInputElement>) => {

@@ -36,6 +36,32 @@ function App() {
         localStorage.setItem('counterKey', JSON.stringify(counter))
     }, [counter])
 
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('startValueKey_1')
+        if (valueAsString) {
+            let valueAsNumber = JSON.parse(valueAsString)
+            setStartValue(valueAsNumber)
+        }
+    }, [])
+    useEffect(() => {
+        let valueAsString = localStorage.getItem('maxValueKey_1')
+        if (valueAsString) {
+            let valueAsNumber = JSON.parse(valueAsString)
+            setMaxValue(valueAsNumber)
+        }
+    }, [])
+    useEffect(() => {
+        localStorage.setItem('startValueKey_1', JSON.stringify(startValue))
+    }, [startValue])
+    useEffect(() => {
+        localStorage.setItem('maxValueKey_1', JSON.stringify(maxValue))
+    }, [maxValue])
+
+
+
+
+
+
 
     const incCounterHandler = () => {
         if (counter < maxValue) setCounter(counter + 1)
