@@ -19,23 +19,30 @@ export function Counter(props: CounterType) {
     return (
         <div className={s.counter}>
             <div className={s.counterNumber}>
-                <span className={counterNumberMaxClass}>{props.counter}</span>
+                {props.maxValue === 0 || props.startValue >= props.maxValue ?
+                    <span>Set the correct settings and click 'SET'</span> :
+                    <span className={counterNumberMaxClass}>{props.counter}</span>}
+
             </div>
             <div className={s.counterButtons}>
 
-                    {
-                        props.maxValue === props.counter
-                            ? <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={incCounterHandler} disabled>inc</Button>
-                            : <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={incCounterHandler}>inc</Button>
-                    }
+                {
+                    props.maxValue === props.counter
+                        ? <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={incCounterHandler}
+                                  disabled>inc</Button>
+                        : <Button style={{margin: '3px 3px'}} variant={'contained'}
+                                  onClick={incCounterHandler}>inc</Button>
+                }
 
 
-                    {
-                        // eslint-disable-next-line no-mixed-operators
-                        props.maxValue !== 0 && props.counter === props.maxValue || props.counter > props.startValue
-                            ? <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={resetCounterHandler}>res</Button>
-                            : <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={resetCounterHandler} disabled>res</Button>
-                    }
+                {
+                    // eslint-disable-next-line no-mixed-operators
+                    props.maxValue !== 0 && props.counter === props.maxValue || props.counter > props.startValue
+                        ? <Button style={{margin: '3px 3px'}} variant={'contained'}
+                                  onClick={resetCounterHandler}>res</Button>
+                        : <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={resetCounterHandler}
+                                  disabled>res</Button>
+                }
 
             </div>
         </div>
