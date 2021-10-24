@@ -47,6 +47,14 @@ export function SetCounter(props: CounterType) {
         props.setStartValue(startValue)
         props.setCounter(startValue)
     }
+
+    const resetSet = () => {
+        localStorage.clear()
+        setStartValue(0)
+        setMaxValue(0)
+        props.setStartValue(0)
+        props.setMaxValue(0)
+    }
     return (
         <div className={s.SetCounter}>
             <div className={s.counterValues}>
@@ -112,6 +120,11 @@ export function SetCounter(props: CounterType) {
                         <Button style={{margin: '3px 3px'}} variant={'contained'}
                                 onClick={setCounterHandler}>set</Button>
                 }
+                {localStorage.length === 0
+                    ? <Button style={{margin: '3px 3px'}} variant={'contained'} disabled
+                              onClick={resetSet}>reset set</Button>
+                    : <Button style={{margin: '3px 3px'}} variant={'contained'}
+                              onClick={resetSet}>reset set</Button>}
 
             </div>
         </div>
