@@ -19,9 +19,9 @@ export function Counter(props: CounterType) {
     return (
         <div className={s.counter}>
             <div className={s.counterNumber}>
-                {props.maxValue === 0 || props.startValue >= props.maxValue ?
-                    <span>Set the correct settings and click 'SET'</span> :
-                    <span className={counterNumberMaxClass}>{props.counter}</span>}
+                {props.maxValue === 0 || props.startValue >= props.maxValue
+                    ? <span>Click 'SET'</span>
+                    : <span className={counterNumberMaxClass}>{props.counter}</span>}
 
             </div>
             <div className={s.counterButtons}>
@@ -36,8 +36,7 @@ export function Counter(props: CounterType) {
 
 
                 {
-                    // eslint-disable-next-line no-mixed-operators
-                    props.maxValue !== 0 && props.counter === props.maxValue || props.counter > props.startValue
+                    (props.maxValue !== 0 && props.counter === props.maxValue) || props.counter > props.startValue
                         ? <Button style={{margin: '3px 3px'}} variant={'contained'}
                                   onClick={resetCounterHandler}>reset</Button>
                         : <Button style={{margin: '3px 3px'}} variant={'contained'} onClick={resetCounterHandler}

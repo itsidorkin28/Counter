@@ -1,96 +1,76 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useReducer} from 'react'
 import s from './App.module.scss'
-import {Counter} from "./components/Counter/Counter"
-import {Container, Grid, Paper, styled} from "@mui/material";
+import {Container, Paper} from "@mui/material";
 import {SetCounter} from './components/SetCounter/SetCounter';
-
-const Item = styled(Paper)(({theme}) => ({
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    marginTop: theme.spacing(10),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
+import {counterReducer, incrementAC, maxValueAC, resetAC, startValueAC} from "./state/counter-reducer";
 
 function App() {
-
-    const [startValue, setStartValue] = useState<number>(0)
-    const [maxValue, setMaxValue] = useState<number>(0)
-    const [counter, setCounter] = useState<number>(startValue)
+    const [count, dispatch] = useReducer(counterReducer, {
+        startValue: 0,
+        maxValue: 0,
+        countValue: 0
+    })
 
     const changeStartValue = (num: number) => {
-        setStartValue(num)
+        dispatch(startValueAC(num))
     }
     const changeMaxValue = (num: number) => {
-        setMaxValue(num)
+        dispatch(maxValueAC(num))
     }
     useEffect(() => {
         let valueAsString = localStorage.getItem('counterKey')
         if (valueAsString) {
             let valueAsNumber = JSON.parse(valueAsString)
-            setCounter(valueAsNumber)
+            dispatch(resetAC(valueAsNumber))
         }
     }, [])
 
     useEffect(() => {
-        localStorage.setItem('counterKey', JSON.stringify(counter))
-    }, [counter])
+        localStorage.setItem('counterKey', JSON.stringify(count.countValue))
+    }, [count.countValue])
 
     useEffect(() => {
         let valueAsString = localStorage.getItem('startValueKey_1')
         if (valueAsString) {
             let valueAsNumber = JSON.parse(valueAsString)
-            setStartValue(valueAsNumber)
+            dispatch(startValueAC(valueAsNumber))
         }
     }, [])
     useEffect(() => {
         let valueAsString = localStorage.getItem('maxValueKey_1')
         if (valueAsString) {
             let valueAsNumber = JSON.parse(valueAsString)
-            setMaxValue(valueAsNumber)
+            dispatch(maxValueAC(valueAsNumber))
         }
     }, [])
     useEffect(() => {
-        localStorage.setItem('startValueKey_1', JSON.stringify(startValue))
-    }, [startValue])
+        localStorage.setItem('startValueKey_1', JSON.stringify(count.startValue))
+    }, [count.startValue])
     useEffect(() => {
-        localStorage.setItem('maxValueKey_1', JSON.stringify(maxValue))
-    }, [maxValue])
+        localStorage.setItem('maxValueKey_1', JSON.stringify(count.maxValue))
+    }, [count.maxValue])
 
     const incCounterHandler = () => {
-        if (counter < maxValue) setCounter(counter + 1)
+        if (count.countValue < count.maxValue) dispatch(incrementAC(1))
     }
 
-    const resetCounterHandler = () => setCounter(startValue)
-    const setCounterHandler = (num: number) => setCounter(num)
+    const resetCounterHandler = () => dispatch(resetAC(count.startValue))
+    const setCounterHandler = (num: number) => dispatch(resetAC(num))
 
     return (
         <div className={s.App}>
-            <Container fixed>
-
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
-                        <Item>
-                            <SetCounter counter={counter}
+            <Container fixed maxWidth={'sm'}>
+                        <Paper>
+                            <SetCounter counter={count.countValue}
                                         setCounter={setCounterHandler}
-                                        startValue={startValue}
-                                        maxValue={maxValue}
+                                        startValue={count.startValue}
+                                        maxValue={count.maxValue}
                                         setStartValue={changeStartValue}
                                         setMaxValue={changeMaxValue}
-                            />
-                        </Item>
-                    </Grid>
-                    <Grid item xs={6}>
-                        <Item>
-                            <Counter counter={counter}
-                                     incCounterHandler={incCounterHandler}
-                                     resetCounterHandler={resetCounterHandler}
-                                     startValue={startValue}
-                                     maxValue={maxValue}
-                            />
-                        </Item>
-                    </Grid>
-                </Grid>
+                                        incCounterHandler={incCounterHandler}
+                                        resetCounterHandler={resetCounterHandler}/>
+                        </Paper>
+
             </Container>
         </div>
     )

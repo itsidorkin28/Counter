@@ -1,6 +1,8 @@
 import {Button, Paper, TextField} from "@mui/material"
 import React, {ChangeEvent, useEffect, useState} from "react"
 import s from './SetCounter.module.scss'
+import {Counter} from "../Counter/Counter";
+import {CounterError} from "../Counter/CounterError";
 
 export type CounterType = {
     counter: number
@@ -9,7 +11,8 @@ export type CounterType = {
     setMaxValue: (num: number) => void
     startValue: number
     maxValue: number
-
+    incCounterHandler: () => void
+    resetCounterHandler: () => void
 }
 
 export function SetCounter(props: CounterType) {
@@ -56,77 +59,71 @@ export function SetCounter(props: CounterType) {
         props.setMaxValue(0)
     }
     return (
-        <div className={s.SetCounter}>
-            <div className={s.counterValues}>
-                <div>
-                    <Paper>
-                        <span>Max value:</span>
-                        {maxValue < 0 ?
-                            <TextField value={maxValue}
-                                       onChange={setMaxValueHandler}
-                                       size={'small'}
-                                       id="outlined-number"
-                                       label="Number"
-                                       type="number"
-                                       error
-                                       InputLabelProps={{
-                                           shrink: true,
-                                       }}
-                            /> : <TextField value={maxValue}
-                                            onChange={setMaxValueHandler}
-                                            size={'small'}
-                                            id="outlined-number"
-                                            label="Number"
-                                            type="number"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                            />}
-                    </Paper>
+        <div>
+            <div className={s.SetCounter}>
+                <div className={s.counterValues}>
+                    <div>
+                        <Paper>
+                            <span>Max value:</span>
+                            {maxValue < 0
+                                ? <TextField value={maxValue}
+                                             onChange={setMaxValueHandler}
+                                             size={'small'}
+                                             id="outlined-number"
+                                             label="Number"
+                                             type="number"
+                                             error/>
+                                : <TextField value={maxValue}
+                                             onChange={setMaxValueHandler}
+                                             size={'small'}
+                                             id="outlined-number"
+                                             label="Number"
+                                             type="number"/>}
+                        </Paper>
+                    </div>
+                    <div>
+                        <Paper>
+                            <span>Start value:</span>
+                            {startValue < 0
+                                ? <TextField value={startValue}
+                                             onChange={setStartValueHandler}
+                                             size={'small'}
+                                             id="outlined-number"
+                                             label="Number"
+                                             type="number"
+                                             error/>
+                                : <TextField value={startValue}
+                                             onChange={setStartValueHandler}
+                                             size={'small'}
+                                             id="outlined-number"
+                                             label="Number"
+                                             type="number"/>}
+                        </Paper>
+                    </div>
                 </div>
-                <div>
-                    <Paper>
-                        <span>Start value:</span>
-                        {startValue < 0 ?
-                            <TextField value={startValue}
-                                       onChange={setStartValueHandler}
-                                       size={'small'}
-                                       id="outlined-number"
-                                       label="Number"
-                                       type="number"
-                                       error
-                                       InputLabelProps={{
-                                           shrink: true,
-                                       }}
-                            /> : <TextField value={startValue}
-                                            onChange={setStartValueHandler}
-                                            size={'small'}
-                                            id="outlined-number"
-                                            label="Number"
-                                            type="number"
-                                            InputLabelProps={{
-                                                shrink: true,
-                                            }}
-                            />}
-                    </Paper>
-                </div>
-            </div>
-            <div className={s.setButton}>
-                {
-                    // eslint-disable-next-line no-mixed-operators
-                    startValue === props.startValue && maxValue === props.maxValue || startValue >= maxValue || startValue < 0 || maxValue <= 0 ?
-                        <Button style={{margin: '3px 3px'}} variant={'contained'}
-                                onClick={setCounterHandler} disabled>set</Button> :
-                        <Button style={{margin: '3px 3px'}} variant={'contained'}
-                                onClick={setCounterHandler}>set</Button>
-                }
-                {localStorage.length === 0
-                    ? <Button style={{margin: '3px 3px'}} variant={'contained'} disabled
-                              onClick={resetSet}>reset set</Button>
-                    : <Button style={{margin: '3px 3px'}} variant={'contained'}
-                              onClick={resetSet}>reset set</Button>}
+                <div className={s.setButton}>
+                    {
+                        (startValue === props.startValue && maxValue === props.maxValue) || startValue >= maxValue || startValue < 0 || maxValue <= 0
+                            ? <Button style={{margin: '3px 3px'}} variant={'contained'}
+                                    onClick={setCounterHandler} disabled>set</Button>
+                            : <Button style={{margin: '3px 3px'}} variant={'contained'}
+                                    onClick={setCounterHandler}>set</Button>
+                    }
+                    {localStorage.length === 0
+                        ? <Button style={{margin: '3px 3px'}} variant={'contained'} disabled
+                                  onClick={resetSet}>reset set</Button>
+                        : <Button style={{margin: '3px 3px'}} variant={'contained'}
+                                  onClick={resetSet}>reset set</Button>}
 
+                </div>
             </div>
+            {startValue >= maxValue || startValue < 0 || maxValue <= 0
+            ? <CounterError/>
+            : <Counter counter={props.counter}
+                       incCounterHandler={props.incCounterHandler}
+                       resetCounterHandler={props.resetCounterHandler}
+                       startValue={props.startValue}
+                       maxValue={props.maxValue}/>}
         </div>
     )
 }
