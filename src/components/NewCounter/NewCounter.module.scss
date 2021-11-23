@@ -1,0 +1,23 @@
+.newCounterBlock {
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 15px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 5px;
+    .buttonsBlock {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        border: 1px solid;
+        border-radius: 5px;
+        padding: 15px;
+        margin-top: 15px;
+        button {
+            margin: 0 5px;
+        }
+    }
+}

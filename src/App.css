@@ -1,0 +1,17 @@
+.app {
+    margin: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.errorInput {
+    border: 2px solid red;
+}
+
+.errorText {
+    color: red;
+}
