@@ -1,6 +1,7 @@
 import {useDispatch, useSelector } from "react-redux"
 import { setDisabledException } from "../../redux/counter-reducer"
 import { StateType } from "../../redux/store"
+import s from './CounterSetter.module.scss'
 
 type ValueInputType = {
     name: string
@@ -21,7 +22,7 @@ export const ValueInput = ({name, getInputValue, value}: ValueInputType) => {
     return (
         <div>
             <p>{name}</p>
-            <input value={value} type="number" onChange={onChangeHandler} className={error ? 'errorInput' : ''}/>
+            <input value={value} type="number" onChange={onChangeHandler} className={error ? s.errorInput : ''}/>
         </div>
     )
 }
