@@ -34,8 +34,6 @@ export const counterReducer = (state = initialState, action: ActionsTypes): Coun
             return {...state, disabled: action.disabledValue}
         case "SET-DISABLED-EXCEPTION":
             return {...state, disabledException: action.disabledValue}
-        case "SET-START-VALUE-TO-LOCAL-STORAGE":
-            return {...state, countValue: action.value}
         default:
             return state
     }
@@ -50,7 +48,7 @@ export type ActionsTypes =
     | setErrorType
     | setDisabledType
     | setDisabledExceptionType
-    | setStartValueToLocalStorageType;
+
 
 export type incCounterType = ReturnType<typeof incCounter>
 export const incCounter = () => {
@@ -115,11 +113,4 @@ export const setDisabledException = (disabledValue: boolean) => {
     } as const
 }
 
-export type setStartValueToLocalStorageType = ReturnType<typeof setStartValueToLocalStorage>
-export const setStartValueToLocalStorage = (value: number) => {
-    return {
-        type: 'SET-START-VALUE-TO-LOCAL-STORAGE',
-        value
-    } as const
-}
 
